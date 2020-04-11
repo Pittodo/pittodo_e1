@@ -1,10 +1,5 @@
 from debug import tic, toc
+import interface
 
-tic()
-print('start')
-toc()
-
-print("blablalba")
-
-newString = "lalala2"
-print(newString)
+if __name__ == '__main__':
+    interface.PittodoApp().run()

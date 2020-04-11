@@ -1,0 +1,19 @@
+<PittodoMain>:
+
+    Label:
+        font_size: 20
+        right: root.width - 10
+        top: 70
+        text: "PittodoMain"
+
+
+    Button:
+        text: 'START'
+        on_press: print("press")
+        on_release: print("release")
+        on_state:
+            print("my current state is {}".format(self.state))
+        height: 50
+        width: 100
+        top: root.top - 10
+        x: 10
