@@ -5,3 +5,6 @@ print('start')
 toc()
 
 print("blablalba")
+
+newString = "lalala2"
+print(newString)
