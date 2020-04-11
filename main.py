@@ -4,4 +4,4 @@ tic()
 print('start')
 toc()
 
-print("lalala")
+print("blablalba")
