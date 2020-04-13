@@ -1,19 +1,36 @@
 <PittodoMain>:
+  minimum_width: 500
+  BoxLayout:
+    orientation: 'vertical'
+    BoxLayout:
+      id: topMenu
+      orientation: 'horizontal'
 
-    Label:
+    BoxLayout:
+      id: mainContent
+      orientation: 'horizontal'
+      BoxLayout:
+        id: sideBarMenu
+        orientation: 'vertical'
+        Button:
+          text: 'add_task()'
+          on_press: app.add_task()
+          on_release: app.model.add_task()
+          # on_state:
+              # print("my current state is {}".format(self.state))
+          height: 50
+          width: 100
+          top: root.top - 10
+          x: 10
+        Button:
+          text: 'del_task()'
+          on_release: app.model.del_task()
+
+    BoxLayout:
+      id: footer
+      orientation: 'horizontal'
+      Label:
         font_size: 20
         right: root.width - 10
         top: 70
         text: "PittodoMain"
-
-
-    Button:
-        text: 'add_task()'
-        on_press: app.add_task()
-        on_release: app.model.add_task()
-        # on_state:
-            # print("my current state is {}".format(self.state))
-        height: 50
-        width: 100
-        top: root.top - 10
-        x: 10
