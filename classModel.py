@@ -26,3 +26,4 @@ class Model:
 
     def load_settings():
         pass
+        
