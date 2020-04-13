@@ -1,5 +1,10 @@
 from debug import tic, toc
 import interface
+from classModel import Model
+
 
 if __name__ == '__main__':
-    interface.PittodoApp().run()
+    print("---------------  M A I N  -----------------")
+    model = Model()
+    model.add_task()
+    interface.PittodoApp().run(model)

@@ -7,7 +7,7 @@ class Model:
         pass
 
     def add_task(task):
-        pass
+        print("[Model] add_task()")
 
     def del_task(task_id):
         pass
@@ -26,4 +26,3 @@ class Model:
 
     def load_settings():
         pass
-        

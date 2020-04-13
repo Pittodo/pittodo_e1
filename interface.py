@@ -11,5 +11,15 @@ class PittodoMain(Widget):
 
 
 class PittodoApp(App):
+    global model
+
     def build(self):
         return PittodoMain()
+
+    def run(self, model):
+        self.model = model
+        App.run(self)
+
+    def add_task(self):
+        print("[PittodoApp] add_task()")
+        self.model.add_task()
