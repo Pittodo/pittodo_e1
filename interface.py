@@ -1,34 +1,60 @@
-import kivy
-kivy.require('1.11.1')
+from PySide2.QtWidgets import (QMainWindow, QAction, QApplication,
+                                QWidget, QPushButton, QLabel,QHBoxLayout,
+                                QVBoxLayout)
+from PySide2.QtCore import QObject, Signal, Slot
 
-from kivy.app import App
-from kivy.uix.widget import Widget
-from kivy.uix.label import Label
-from kivy.uix.boxlayout import BoxLayout
-from kivy.core.window import Window
-from kivy.config import Config
+from classModel import Model
+
 from debug import tic, toc
 
-class PittodoMain(Widget):
-    pass
+class PittodoMainWidget(QWidget):
+    def __init__(self):
+        super().__init__()
+
+        self.buttonAddTask = QPushButton("AddTask")
+        self.text = QLabel("Pittodo")
+        # QWidget Layout
+        self.left = QVBoxLayout()
+        self.left.addWidget(self.buttonAddTask)
+        self.left.addWidget(self.text)
+        self.setLayout(self.left)
+
+         # Signals and Slots
+        self.buttonAddTask.clicked.connect(self.add_task)
+
+    @Slot()
+    def add_task():
+        Model.add_task()
 
 
-class PittodoApp(App):
-    def build_config(self, config):
-        pass
+class MainWindow(QMainWindow):
+    def __init__(self, widget):
+        QMainWindow.__init__(self)
+        self.setWindowTitle("Pittodo")
+        self.resize(800, 600)
 
-    def build(self):
-        config = self.config
-        return PittodoMain()
+        # Menu
+        self.menu = self.menuBar()
+        self.file_menu = self.menu.addMenu("File")
 
-    def run(self, model):
-        self.model = model
-        App.run(self)
+        # Exit QAction
+        exit_action = QAction("Exit", self)
+        exit_action.setShortcut("Ctrl+Q")
+        exit_action.triggered.connect(self.exit_app)
+        self.file_menu.addAction(exit_action)
+        # Add Widget as central window widget
+        self.setCentralWidget(widget)
+        self.show()
+        toc()
 
-    def add_task(self):
-        print("[PittodoApp] add_task()")
-        self.model.add_task()
+    @Slot()
+    def exit_app(self, checked):
+        QApplication.quit()
 
-    def on_start(self, **kwargs):
-        print('\nWindow loading time:')
-        toc()  # for debug window loading time
+
+def run(self, model):
+    self.model = model
+
+def add_task(self):
+    print("[PittodoApp] add_task()")
+    self.model.add_task()
