@@ -5,6 +5,8 @@ from kivy.app import App
 from kivy.uix.widget import Widget
 from kivy.uix.label import Label
 from kivy.uix.boxlayout import BoxLayout
+from kivy.core.window import Window
+from kivy.config import Config
 
 
 class PittodoMain(Widget):
@@ -12,9 +14,11 @@ class PittodoMain(Widget):
 
 
 class PittodoApp(App):
-    global model
+    def build_config(self, config):
+        pass
 
     def build(self):
+        config = self.config
         return PittodoMain()
 
     def run(self, model):

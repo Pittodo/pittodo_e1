@@ -1,36 +1,45 @@
+<MyButton@Button>:
+  background_color: (1, 1, 0, 1)
+  color: (0, 0, 0, 1)
+  size: (120, 60)
+  size_hint: (None, None)
+
+<MyFooter@Label>:
+  color: (1, 0, 0, 1)
+  height: 30
+  size_hint_y: None
 <PittodoMain>:
-  minimum_width: 500
+
+
   BoxLayout:
     orientation: 'vertical'
-    BoxLayout:
-      id: topMenu
-      orientation: 'horizontal'
+    size: root.size
 
+    StackLayout:
+      id: topMenu
+      orientation: 'lr-tb'
+      MyButton:
+        text: "File"
+      MyButton:
+        text: "Edit"
+      MyButton:
+        text: "View"
     BoxLayout:
       id: mainContent
       orientation: 'horizontal'
-      BoxLayout:
+
+      StackLayout:
         id: sideBarMenu
-        orientation: 'vertical'
-        Button:
+        orientation: 'tb-lr'
+
+        MyButton:
           text: 'add_task()'
           on_press: app.add_task()
           on_release: app.model.add_task()
-          # on_state:
-              # print("my current state is {}".format(self.state))
-          height: 50
-          width: 100
-          top: root.top - 10
-          x: 10
-        Button:
+
+        MyButton:
           text: 'del_task()'
           on_release: app.model.del_task()
-
-    BoxLayout:
-      id: footer
-      orientation: 'horizontal'
-      Label:
-        font_size: 20
-        right: root.width - 10
-        top: 70
-        text: "PittodoMain"
+    MyFooter:
+      font_size: 16
+      text: "PittodoMain"
