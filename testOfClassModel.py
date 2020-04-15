@@ -1,6 +1,7 @@
 import unittest
 from classModel import Model
 from classTask import Task, TaskStatus
+import sys, os
 
 
 class TestClassModel(unittest.TestCase):
@@ -107,4 +108,5 @@ class TestClassModel(unittest.TestCase):
 
 
 if __name__ == '__main__':
+    sys.stdout = open(os.devnull, 'w')  # it turns off all of print()
     unittest.main(argv=['first-arg-is-ignored'], exit=False, verbosity=2)
