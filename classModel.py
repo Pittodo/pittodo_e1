@@ -1,28 +1,35 @@
+from classDatabaseConnector import DatabaseConnector
+import copy
 
 
 class Model:
+    settings_path = "settings.txt"
 
     def __init__(self):
         self.tasks = []
-        pass
+        self.settings = {}
 
-    def add_task(task):
+    def add_task(self, task):
         print("[Model] add_task()")
+        self.tasks.append(copy.copy(task))
 
-    def del_task(task_id):
-        pass
+    def del_task(self, task_id):
+        del self.tasks[task_id]
 
-    def get_task(task_id):
-        pass
+    def get_task(self, task_id):
+        return self.tasks[task_id]
 
-    def save_tasks():
-        pass
+    def get_last_task_id(self):
+        return len(self.tasks)-1
 
-    def load_tasks():
-        pass
+    def save_tasks(self):
+        DatabaseConnector(self.settings['db_path']).save(self.tasks)
 
-    def save_settings():
-        pass
+    def load_tasks(self):
+        self.tasks = DatabaseConnector(self.settings['db_path']).load()
 
-    def load_settings():
-        pass
+    def save_settings(self):
+        DatabaseConnector(self.settings_path).save(self.settings)
+
+    def load_settings(self):
+        self.settings = DatabaseConnector(self.settings_path).load()
