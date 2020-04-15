@@ -1,6 +1,6 @@
 import sys
 import interface
-from debug import tic, toc
+from debug import tic
 from classModel import Model
 tic()  # for debug window loading time
 

@@ -22,14 +22,6 @@ class Task:
     def __eq__(self, other):
         return self.content == other.content
 
-    # def flat(self):
-        # return [self.id, self.status, self.content]
-
-    # def unflat(self, flat_task):
-        # self.id = flat_task[0]
-        # self.status = flat_task[1]
-        # self.content = flat_task[2]
-
 
 class TaskStatus(Enum):
     TODO = 0

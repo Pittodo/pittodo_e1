@@ -1,7 +1,8 @@
 import unittest
 from classModel import Model
 from classTask import Task, TaskStatus
-import sys, os
+import sys
+import os
 
 
 class TestClassModel(unittest.TestCase):
