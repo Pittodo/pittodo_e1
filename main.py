@@ -1,20 +1,13 @@
-from debug import tic, toc
-tic()  # for debug window loading time
 import sys
-from PySide2.QtWidgets import QApplication
 import interface
+from debug import tic, toc
 from classModel import Model
-
+tic()  # for debug window loading time
 
 if __name__ == '__main__':
 
     print("---------------  M A I N  -----------------")
     model = Model()
-    model.add_task()
-    app = QApplication(sys.argv)
-    widget = interface.PittodoMainWidget()
-    window = interface.MainWindow(widget)
-
-
-
-    sys.exit(app.exec_())
+    model.add_task() # Only for testing
+    window = interface.MainWindow(model)
+    sys.exit(window.app.exec_())
