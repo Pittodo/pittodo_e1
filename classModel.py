@@ -3,7 +3,7 @@ import copy
 
 
 class Model:
-    settings_path = "settings.txt"
+    settings_path = "settings.dat"
 
     def __init__(self):
         self.tasks = []

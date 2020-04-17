@@ -1,4 +1,5 @@
 import time
+from classModel import Model
 
 
 def TicTocGenerator():
@@ -24,3 +25,13 @@ def toc(tempBool=True):
 def tic():
     # Records a time in TicToc, marks the beginning of a time interval
     toc(False)
+
+
+def print_database(filename):
+    m = Model()
+    m.settings['db_path'] = filename
+    m.load_tasks()
+    for it in range(len(m.tasks)):
+        print("\nTASK     {} -----------------------".format(it))
+        print("CONTENT: {}".format(m.tasks[it].get_content()))
+        print("STATUS:  {}".format(m.tasks[it].get_status()))
