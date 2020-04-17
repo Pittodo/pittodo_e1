@@ -133,24 +133,24 @@ class MainWindow(QMainWindow):
         '''
         Creating widgets for new task ready to edit
         '''
-        taskId = self.model.add_empty_task()
+        task_id = self.model.add_empty_task()
         # self.tasks[taskId] = ""
-        self.contents[taskId] = QTextEdit()
-        self.contents[taskId].setReadOnly(False)
-        self.deleteButtons[taskId] = QPushButton("Delete")
-        self.saveButtons[taskId] = QPushButton("Save")
+        self.contents[task_id] = QTextEdit()
+        self.contents[task_id].setReadOnly(False)
+        self.deleteButtons[task_id] = QPushButton("Delete")
+        self.saveButtons[task_id] = QPushButton("Save")
 
-        self.layouts[taskId] = QHBoxLayout()
-        self.taskNavigations[taskId] = QVBoxLayout()
+        self.layouts[task_id] = QHBoxLayout()
+        self.taskNavigations[task_id] = QVBoxLayout()
 
-        self.layouts[taskId].addWidget(self.contents[taskId])
-        self.layouts[taskId].addLayout(self.taskNavigations[taskId])
-        self.taskNavigations[taskId].addWidget(self.deleteButtons[taskId])
-        self.taskNavigations[taskId].addWidget(self.saveButtons[taskId])
-        self.content.addLayout(self.layouts[taskId])
+        self.layouts[task_id].addWidget(self.contents[task_id])
+        self.layouts[task_id].addLayout(self.taskNavigations[task_id])
+        self.taskNavigations[task_id].addWidget(self.deleteButtons[task_id])
+        self.taskNavigations[task_id].addWidget(self.saveButtons[task_id])
+        self.content.addLayout(self.layouts[task_id])
 
-        self.saveButtons[taskId].clicked.connect(lambda: self.save_task_clicked(taskId, self.contents[taskId].toPlainText()))
-        self.deleteButtons[taskId].clicked.connect(lambda: self.delete_task_clicked(taskId))
+        self.saveButtons[task_id].clicked.connect(lambda: self.save_task_clicked(task_id, self.contents[task_id].toPlainText()))
+        self.deleteButtons[task_id].clicked.connect(lambda: self.delete_task_clicked(task_id))
 
     def save_task(self, task_id):
         '''

@@ -14,7 +14,7 @@ class Model:
     def add_task(self, task):
         self.tasks.append(copy.copy(task))
 
-    def add_empty_task(self, task_id):
+    def add_empty_task(self):
         t = Task()
         t.id = self.find_free_id()
         self.tasks.append(t)
