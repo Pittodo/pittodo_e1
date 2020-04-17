@@ -18,19 +18,35 @@ class TestClassModel(unittest.TestCase):
 
         t.set_content("test content")
         t.set_status(TaskStatus.DONE)
+        t.id = 5
         m.add_task(t)
 
         t.set_content("test content2")
         t.set_status(TaskStatus.DOING)
+        t.id = 10
         m.add_task(t)
 
-        gt2 = m.get_task(0)
+        gt2 = m.get_task(5)
         self.assertEqual(gt2.get_status(), TaskStatus.DONE)
         self.assertEqual(gt2.get_content(), "test content")
 
-        gt = m.get_task(1)
+        gt = m.get_task(10)
         self.assertEqual(gt.get_status(), TaskStatus.DOING)
         self.assertEqual(gt.get_content(), "test content2")
+
+    def add_empty_task(self):
+        m = Model()
+        self.assertEqual(m.add_empty_task(), 0)
+        m.add_empty_task()
+        m.add_empty_task()
+        m.add_empty_task()
+        self.assertEqual(m.add_empty_task(), 4)
+        t = Task()
+        t.id = 5
+        m.add_task(t)
+        t.id = 6
+        m.add_task(t)
+        self.assertEqual(m.add_empty_task(), 7)
 
     def test_del_task(self):
         m = Model()
@@ -38,17 +54,58 @@ class TestClassModel(unittest.TestCase):
 
         t.set_content("test content")
         t.set_status(TaskStatus.DONE)
+        t.id = 5
         m.add_task(t)
 
         t.set_content("test content2")
         t.set_status(TaskStatus.DOING)
+        t.id = 11
         m.add_task(t)
 
-        m.del_task(0)
+        m.del_task(5)
+        self.assertEqual(len(m.tasks), 1)
 
-        gt = m.get_task(0)
+        gt = m.get_task(11)
         self.assertEqual(gt.get_status(), TaskStatus.DOING)
         self.assertEqual(gt.get_content(), "test content2")
+
+        self.assertEqual(m.get_task(5), False)
+
+    def find_free_id(self):
+        m = Model()
+        t = Task()
+        t.id = 1
+        m.add_task(t)
+        t.id = 3
+        m.add_task(t)
+        t.id = 6
+        m.add_task(t)
+        t.id = 9
+        m.add_task(t)
+
+        self.assertEqual(m.find_free_id(), 0)
+
+        t.id = 0
+        m.add_task(t)
+        self.assertEqual(m.find_free_id(), 2)
+
+    def test_get_task_index(self):
+        m = Model()
+
+        t1 = Task()
+        t1.set_content("test content")
+        t1.set_status(TaskStatus.DONE)
+        t1.id = 5
+        m.add_task(t1)
+
+        t2 = Task()
+        t2.set_content("test content2")
+        t2.set_status(TaskStatus.DOING)
+        t2.id = 7
+        m.add_task(t2)
+
+        self.assertEqual(m.get_task_index(t2), 1)
+        self.assertEqual(m.get_task_index(t1), 0)
 
     def test_get_task(self):
         m = Model()
@@ -56,29 +113,19 @@ class TestClassModel(unittest.TestCase):
         t1 = Task()
         t1.set_content("test content")
         t1.set_status(TaskStatus.DONE)
+        t1.id = 5
         m.add_task(t1)
 
         t2 = Task()
         t2.set_content("test content2")
         t2.set_status(TaskStatus.DOING)
+        t2.id = 7
         m.add_task(t2)
 
-        gt1 = m.get_task(0)
-        gt2 = m.get_task(1)
+        gt1 = m.get_task(5)
+        gt2 = m.get_task(7)
         self.assertEqual(gt1, t1)
         self.assertEqual(gt2, t2)
-
-    def test_get_last_task_id(self):
-        m = Model()
-
-        t = Task()
-        m.add_task(t)
-        m.add_task(t)
-        m.add_task(t)
-        m.add_task(t)
-        m.add_task(t)
-
-        self.assertEqual(m.get_last_task_id(), 4)
 
     def test_save_load_tasks(self):
         m = Model()

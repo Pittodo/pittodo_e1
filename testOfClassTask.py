@@ -8,6 +8,7 @@ class TestClassTask(unittest.TestCase):
 
     def test_init(self):
         t = Task()
+        self.assertEqual(t.id, 0)
         self.assertEqual(t.content, "")
         self.assertEqual(t.status, TaskStatus.TODO)
 
@@ -39,11 +40,15 @@ class TestClassTask(unittest.TestCase):
         t1 = Task()
         t1.content = "content one"
         t1.status = TaskStatus.TODO
+        t1.id = 5
 
         t2 = Task()
         t2.content = "content one"
         t2.status = TaskStatus.DOING
+        t2.id = 7
 
+        self.assertNotEqual(t1, t2)
+        t2.id = 5
         self.assertEqual(t1, t2)
 
 

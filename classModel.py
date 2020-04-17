@@ -4,27 +4,47 @@ from classTask import Task
 
 
 class Model:
-    settings_path = "settings.dat"
+    SETTINGS_PATH = "settings.dat"
+    MAX_ID = 9999
 
     def __init__(self):
         self.tasks = []
         self.settings = {}
 
     def add_task(self, task):
-        print("[Model] add_task()")
         self.tasks.append(copy.copy(task))
 
-    def add_empty_task(self):
-        self.tasks.append(Task())
+    def add_empty_task(self, task_id):
+        t = Task()
+        t.id = self.find_free_id()
+        self.tasks.append(t)
+        return t.id
 
     def del_task(self, task_id):
-        del self.tasks[task_id]
+        for i in range(len(self.tasks)):
+            if(self.tasks[i].id == task_id):
+                del self.tasks[i]
+                break
+
+    def get_task_index(self, task):
+        for i in range(len(self.tasks)):
+            if(task == self.tasks[i]):
+                return i
+        return False
+
+    def find_free_id(self):
+        for id in range(0, self.MAX_ID):
+            for task in self.tasks:
+                if id == task.id:
+                    continue
+            break
+        return id
 
     def get_task(self, task_id):
-        return self.tasks[task_id]
-
-    def get_last_task_id(self):
-        return len(self.tasks)-1
+        for task in self.tasks:
+            if task.id == task_id:
+                return task
+        return False
 
     def save_tasks(self):
         DatabaseConnector(self.settings['db_path']).save(self.tasks)
@@ -33,7 +53,7 @@ class Model:
         self.tasks = DatabaseConnector(self.settings['db_path']).load()
 
     def save_settings(self):
-        DatabaseConnector(self.settings_path).save(self.settings)
+        DatabaseConnector(self.SETTINGS_PATH).save(self.settings)
 
     def load_settings(self):
-        self.settings = DatabaseConnector(self.settings_path).load()
+        self.settings = DatabaseConnector(self.SETTINGS_PATH).load()

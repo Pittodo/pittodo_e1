@@ -32,6 +32,7 @@ def print_database(filename):
     m.settings['db_path'] = filename
     m.load_tasks()
     for it in range(len(m.tasks)):
-        print("\nTASK     {} -----------------------".format(it))
+        id = m.tasks[it].id
+        print("\nTASK     index:{} id:{}-----------------------".format(it, id))
         print("CONTENT: {}".format(m.tasks[it].get_content()))
         print("STATUS:  {}".format(m.tasks[it].get_status()))

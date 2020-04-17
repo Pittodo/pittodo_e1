@@ -125,15 +125,15 @@ class MainWindow(QMainWindow):
         self.contents = {}
         self.deleteButtons = {}
         self.saveButtons = {}
-        for id in range(len(self.model.tasks)):
-            self.load_task(id, self.model.tasks[id].get_content())
+        for index in range(len(self.model.tasks)):
+            task = self.model.tasks[index]
+            self.load_task(task.id, task.get_content())
 
     def new_task(self):
         '''
         Creating widgets for new task ready to edit
         '''
-        self.model.add_empty_task()
-        taskId = self.model.get_last_task_id()
+        taskId = self.model.add_empty_task()
         # self.tasks[taskId] = ""
         self.contents[taskId] = QTextEdit()
         self.contents[taskId].setReadOnly(False)
@@ -162,7 +162,8 @@ class MainWindow(QMainWindow):
         self.contents[task_id].setReadOnly(True)
         self.saveButtons[task_id].setParent(None)
         content_string = self.contents[task_id].toPlainText()
-        self.model.tasks[task_id].set_content(content_string)
+        task = self.model.get_task(task_id)
+        task.set_content(content_string)
         self.model.save_tasks()
 
     def load_task(self, taskId, taskContent):
@@ -203,7 +204,6 @@ class MainWindow(QMainWindow):
         del self.deleteButtons[task_id]
         self.model.del_task(task_id)
         self.model.save_tasks()
-        self.task_list_init()
 
     def edit_task(self):
         pass

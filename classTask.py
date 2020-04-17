@@ -4,6 +4,7 @@ from enum import Enum
 class Task:
 
     def __init__(self):
+        self.id = 0
         self.content = ""
         self.status = TaskStatus.TODO
 
@@ -20,7 +21,7 @@ class Task:
         return self.content
 
     def __eq__(self, other):
-        return self.content == other.content
+        return (self.content == other.content) and (self.id == other.id)
 
 
 class TaskStatus(Enum):
