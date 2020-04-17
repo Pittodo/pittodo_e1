@@ -1,5 +1,6 @@
 from classDatabaseConnector import DatabaseConnector
 import copy
+from classTask import Task
 
 
 class Model:
@@ -12,6 +13,9 @@ class Model:
     def add_task(self, task):
         print("[Model] add_task()")
         self.tasks.append(copy.copy(task))
+
+    def add_empty_task(self):
+        self.tasks.append(Task())
 
     def del_task(self, task_id):
         del self.tasks[task_id]

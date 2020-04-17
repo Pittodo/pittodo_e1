@@ -41,9 +41,8 @@ class MainWindow(QMainWindow):
 
     @Slot()
     def save_task_clicked(self, taskId, content):
-        self.tasks[taskId] = content
         self.save_task(taskId)
-        self.model.add_task()
+
 
     @Slot()
     def delete_task_clicked(self, id):
@@ -129,25 +128,13 @@ class MainWindow(QMainWindow):
         for id in range(len(self.model.tasks)):
             self.load_task(id, self.model.tasks[id].get_content())
 
-    def request_new_id(self):
-        '''
-        Creating unique key = Id for task
-        # Need to change when database will work (it creating unique id)
-        '''
-        try:
-            uniqueTaskId = max(dict.keys(self.tasks)) + 1
-        except:
-            uniqueTaskId = 1
-
-        return uniqueTaskId
-        # ---------
-
     def new_task(self):
         '''
         Creating widgets for new task ready to edit
         '''
-        taskId = self.request_new_id()
-        self.tasks[taskId] = ""
+        self.model.add_empty_task()
+        taskId = self.model.get_last_task_id()
+        # self.tasks[taskId] = ""
         self.contents[taskId] = QTextEdit()
         self.contents[taskId].setReadOnly(False)
         self.deleteButtons[taskId] = QPushButton("Delete")
@@ -165,15 +152,18 @@ class MainWindow(QMainWindow):
         self.saveButtons[taskId].clicked.connect(lambda: self.save_task_clicked(taskId, self.contents[taskId].toPlainText()))
         self.deleteButtons[taskId].clicked.connect(lambda: self.delete_task_clicked(taskId))
 
-    def save_task(self, taskId):
+    def save_task(self, task_id):
         '''
         Saving task on list which means changing control button from save to
         edit and freeze edit window
         '''
         buttonEdit = QPushButton("Edit")
-        self.taskNavigations[taskId].addWidget(buttonEdit)
-        self.contents[taskId].setReadOnly(True)
-        self.saveButtons[taskId].setParent(None)
+        self.taskNavigations[task_id].addWidget(buttonEdit)
+        self.contents[task_id].setReadOnly(True)
+        self.saveButtons[task_id].setParent(None)
+        content_string = self.contents[task_id].toPlainText()
+        self.model.tasks[task_id].set_content(content_string)
+        self.model.save_tasks()
 
     def load_task(self, taskId, taskContent):
         '''
@@ -195,23 +185,25 @@ class MainWindow(QMainWindow):
 
         self.deleteButtons[taskId].clicked.connect(lambda: self.delete_task_clicked(taskId))
 
-    def delete_task(self, taskId):
+    def delete_task(self, task_id):
         '''
         Removing controls for specific task and removing it from database
         '''
-        outer = self.layouts[taskId]
-        inner = self.taskNavigations[taskId]
+        outer = self.layouts[task_id]
+        inner = self.taskNavigations[task_id]
         for i in reversed(range(inner.count())):
             inner.itemAt(i).widget().setParent(None)
         inner.setParent(None)
         for i in reversed(range(outer.count())):
             outer.itemAt(i).widget().setParent(None)
         outer.setParent(None)
-        del self.layouts[taskId]
-        del self.taskNavigations[taskId]
-        del self.contents[taskId]
-        del self.tasks[taskId]
-        del self.deleteButtons[taskId]
+        del self.layouts[task_id]
+        del self.taskNavigations[task_id]
+        del self.contents[task_id]
+        del self.deleteButtons[task_id]
+        self.model.del_task(task_id)
+        self.model.save_tasks()
+        self.task_list_init()
 
     def edit_task(self):
         pass
