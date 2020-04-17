@@ -4,31 +4,31 @@ from PySide2.QtWidgets import (QMainWindow, QAction, QApplication,
                                 QVBoxLayout, QLineEdit, QTextEdit, QSizePolicy)
 from PySide2.QtCore import QObject, Signal, Slot
 from PySide2.QtGui import QPixmap
+import debug
 
-from classModel import Model
-
-from debug import tic, toc
 
 # --- Window class definition ---
 class MainWindow(QMainWindow):
     def __init__(self, model):
-        self.model = model
 
-        # Symulacja bazy z modelu
-        self.tasks = {1:"task1",
-        2:"task2",
-        3:"task3",
-        4:"task4",
-        5:"task5"}
-
+        # Application
         self.app = QApplication(sys.argv)
         QMainWindow.__init__(self)
 
+        # Window config
         self.load_window_config()
+
+        # Model
+        self.model = model
+        self.model.load_settings()
+
+        # Components initialization
         self.top_menu_init()
         self.widget_init()
         self.task_list_init()
-        toc()
+
+        # Debug
+        debug.toc()
 
 # vvvv SLOTS vvvv
     @Slot()
@@ -46,9 +46,10 @@ class MainWindow(QMainWindow):
         self.model.add_task()
 
     @Slot()
-    def delete_task_clicked(self,id):
+    def delete_task_clicked(self, id):
         self.delete_task(id)
 # ^^^^ SLOTS ^^^^
+
     def load_window_config(self):
         '''
         Initialize window setting
@@ -74,7 +75,7 @@ class MainWindow(QMainWindow):
         Initialize Main widget shape
         '''
         self.widget = QWidget()
-        self.setCentralWidget(self.widget) # Add Widget as central window widget
+        self.setCentralWidget(self.widget)  # Add Widget as central window widget
 
         # Buttons create for navigation bar
         buttonAddTask = QPushButton("Add")
@@ -88,7 +89,7 @@ class MainWindow(QMainWindow):
         # Logo
         logo = QLabel("Pittodo")
         logo.setSizePolicy(QSizePolicy.Fixed, QSizePolicy.Fixed)
-        logo.resize(80,60)
+        logo.resize(80, 60)
         pixmap = QPixmap('images/logo.png')
         logo.setPixmap(pixmap)
 
@@ -119,13 +120,14 @@ class MainWindow(QMainWindow):
         '''
         Loading all tasks from database and creating widgets for each one.
         '''
+        self.model.load_tasks()
         self.layouts = {}
         self.taskNavigations = {}
         self.contents = {}
         self.deleteButtons = {}
         self.saveButtons = {}
-        for id in self.tasks:
-            self.load_task(id,self.tasks[id])
+        for id in range(len(self.model.tasks)):
+            self.load_task(id, self.model.tasks[id].get_content())
 
     def request_new_id(self):
         '''
@@ -175,7 +177,7 @@ class MainWindow(QMainWindow):
 
     def load_task(self, taskId, taskContent):
         '''
-        Creating widgets for task which are arleady exist in database.
+        Creating widgets for task which are exists in the database.
         '''
         self.contents[taskId] = QTextEdit(str(taskContent))
         self.contents[taskId].setReadOnly(True)
