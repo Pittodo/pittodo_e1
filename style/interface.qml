@@ -1,6 +1,9 @@
 import QtQuick 2.0
+import "." // QTBUG-34418, singletons require explicit import to load qmldir file
 import QtQuick.Controls 2.3
 import QtQuick.Layouts 1.3
+
+
 
 ApplicationWindow {
   width: 500
@@ -9,6 +12,7 @@ ApplicationWindow {
   visible: true
   title: qsTr("backlight")
   color: "transparent"
+
 
   Rectangle {
     width: 200
@@ -21,18 +25,19 @@ ApplicationWindow {
     anchors.centerIn: parent
 
     Image {
-      source: "images/logo.png"
+      source: "../images/logo.png"
       x: 25
       y: 25
     }
 
     Text {
       text: "Hello world"
+      color: Style.textColor
       anchors.centerIn: parent
 
     }
     Image {
-      source: "images/cancel_button.png"
+      source: "../images/cancel_button.png"
       x: parent.width - 25 - sourceSize.width
       y: 25
       MouseArea {

@@ -34,7 +34,7 @@ class MainWindow():
         manager = Manager()
         ctx = self.engine.rootContext()
         ctx.setContextProperty("Manager", manager)
-        self.engine.load('interface.qml')
+        self.engine.load('style/interface.qml')
 
 
 
