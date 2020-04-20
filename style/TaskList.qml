@@ -5,44 +5,60 @@ import QtQuick.Layouts 1.3
 
 
 ColumnLayout {
-  id: tasks
+  id: tasks_list_layout
   x: 25
   y: 100
   width: parent.width - 75
   height:  parent.height - y -25
 
-
+  MyTaskSeparator {}
   RowLayout {
     height: 40
-    Rectangle {
-      Layout.preferredHeight: control.height
-      color: "magenta"
+    width: parent.width
+    spacing: 15
 
-      MouseArea {
-        anchors.fill: parent
-        onClicked: console.log("Rectangle outer clicked")
-      }
-      TextArea {
-        x:0
-        y:0
-        id: control
-        placeholderText: qsTr("Enter new task...")
-        color: Style.myColor1
 
-        background: Rectangle {
-          implicitWidth: 200
-          // implicitHeight: 30
-          // color: control.hovered ? Style.myColor1 : "transparent"
-          color: control.enabled ? "transparent" : "#353637"
-          border.color: control.enabled ? "#21be2b" : "transparent"
-        }
+    MyCircleButton { text: "A"}
+    TextArea {
+      Layout.fillWidth: true
+      placeholderText: "Enter new task..."
+      color: Style.myColor1
+      wrapMode: Text.WordWrap
+
+      background: Rectangle {
+        color: Style.myColor5
       }
     }
+    MyCircleButton { text: "B"}
+    MyCircleButton { text: "C"}
   }
+  MyTaskSeparator {}
+  RowLayout {
+    height: 40
+    width: parent.width
+    spacing: 15
+
+
+    MyCircleButton { text: "A"}
+    TextArea {
+      Layout.fillWidth: true
+      placeholderText: "Enter new task..."
+      color: Style.myColor1
+      wrapMode: Text.WordWrap
+
+      background: Rectangle {
+        color: Style.myColor5
+      }
+    }
+    MyCircleButton { text: "B"}
+    MyCircleButton { text: "C"}
+  }
+  MyTaskSeparator {}
+
   Rectangle {
     Layout.alignment: Qt.AlignBottom
     Layout.fillHeight: true
-    color: "pink"
+    color: Style.myColor5
     Layout.preferredWidth: parent.width
     Layout.preferredHeight: 40
   }
