@@ -1,4 +1,4 @@
-from PySide2 import QtCore, QtGui, QtWidgets
+from PySide2 import QtCore, QtGui, QtWidgets, QtQuickWidgets
 from taskWidget import TaskWidget
 
 

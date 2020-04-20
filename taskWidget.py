@@ -1,6 +1,8 @@
 from PySide2.QtWidgets import (QWidget, QPushButton, QLabel, QHBoxLayout,
                                QVBoxLayout, QLineEdit, QTextEdit, QSizePolicy,
                                QCheckBox)
+from PySide2.QtQuickWidgets import QQuickWidget
+from PySide2.QtCore import QUrl
 
 
 class TaskStatusWidget(QCheckBox):
@@ -25,9 +27,10 @@ class TaskActionButtons(QWidget):
         self.setLayout(layout)
 
 
-class TaskWidget(QWidget):
+class TaskWidget(QQuickWidget):
     def __init__(self, *args, **kwargs):
         super(TaskWidget, self).__init__(*args, **kwargs)
+        self.setSource(QUrl.fromLocalFile('taskWidgetStyle.qml'))
         layout = QHBoxLayout()
         task_status = TaskStatusWidget()
         task_content = TaskContentWidget()
