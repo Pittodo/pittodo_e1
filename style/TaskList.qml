@@ -12,47 +12,17 @@ ColumnLayout {
   height:  parent.height - y -25
 
   MyTaskSeparator {}
-  RowLayout {
-    height: 40
-    width: parent.width
-    spacing: 15
-
-
-    MyCircleButton { text: "A"}
-    TextArea {
-      Layout.fillWidth: true
-      placeholderText: "Enter new task..."
-      color: Style.myColor1
-      wrapMode: Text.WordWrap
-
-      background: Rectangle {
-        color: Style.myColor5
-      }
-    }
-    MyCircleButton { text: "B"}
-    MyCircleButton { text: "C"}
-  }
+  TaskWidget {}
   MyTaskSeparator {}
-  RowLayout {
-    height: 40
-    width: parent.width
-    spacing: 15
-
-
-    MyCircleButton { text: "A"}
-    TextArea {
-      Layout.fillWidth: true
-      placeholderText: "Enter new task..."
-      color: Style.myColor1
-      wrapMode: Text.WordWrap
-
-      background: Rectangle {
-        color: Style.myColor5
-      }
-    }
-    MyCircleButton { text: "B"}
-    MyCircleButton { text: "C"}
-  }
+  TaskWidget {}
+  MyTaskSeparator {}
+  TaskWidget {}
+  MyTaskSeparator {}
+  TaskWidget {}
+  MyTaskSeparator {}
+  TaskWidget {}
+  MyTaskSeparator {}
+  TaskWidget {}
   MyTaskSeparator {}
 
   Rectangle {
