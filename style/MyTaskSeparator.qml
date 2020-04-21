@@ -6,8 +6,10 @@ import QtQuick.Layouts 1.3
 ToolSeparator {
   orientation: Qt.Horizontal
   Layout.alignment: Qt.AlignHCenter
+  Layout.fillWidth: true
+
   contentItem: Rectangle{
-    implicitWidth: 500
+    implicitWidth: 300
     implicitHeight: 2
     radius: 1
     color: Style.myColor4

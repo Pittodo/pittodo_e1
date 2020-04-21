@@ -6,24 +6,45 @@ import QtQuick.Layouts 1.3
 
 
 RowLayout {
+  id: one_task
   height: 40
-  width: parent.width
-  spacing: 15
+  // width: 500
+  spacing: 0
+  Layout.leftMargin:0
+  Layout.rightMargin:0
+  Layout.maximumWidth: flickable.width - Layout.leftMargin
+  Layout.minimumWidth: flickable.width - Layout.rightMargin
 
 
-  MyCircleButton { text: "A"}
+  // Layout.fillWidth: true
+
+
+  MyCircleButton {
+    id: btn_a
+    text: "A"
+    height: 40
+  }
   TextArea {
-    Layout.fillWidth: true
     placeholderText: "Enter new task..."
     color: Style.myColor1
-    wrapMode: Text.WordWrap
+    wrapMode: Text.Wrap
+    Layout.fillWidth: true
 
     background: Rectangle {
+      // implicitWidth: 300
+      // implicitHeight: 40
       color: Style.myColor5
     }
   }
   MyCircleButton {
-    id: abc
-    text: "B"}
-  MyCircleButton { text: "C"}
+    id: btn_b
+    text: "B"
+    height: 40
+  }
+  MyCircleButton {
+    id: btn_c
+    text: "C"
+    height: 40
+  }
+
 }

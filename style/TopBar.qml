@@ -10,30 +10,16 @@ Rectangle {
   radius: parent.radius
   color: "transparent"
 
-  Rectangle {
-    y: 25
-    height: 30
-    width: 30
-    radius: 15
-    x: parent.width - 25 - width
-    color: Style.myColor1
-
-    MouseArea {
-      anchors.fill: parent
-      onClicked: console.log("Button exit clicked!")
-    }
+  MyCircleButton {
+    id: minimize_btn
+    text: "-"
+    x: root_window.width - 2*height - 30
+    y: height
   }
-  Rectangle {
-    y: 25
-    height: 30
-    width: 30
-    radius: 15
-    x: parent.width - 60 - width
-    color: Style.myColor1
-
-    MouseArea {
-      anchors.fill: parent
-      onClicked: console.log("Button minimize clicked!")
-    }
+  MyCircleButton {
+    id: exit_btn
+    text: "X"
+    x: root_window.width - 1*height - 15
+    y: height
   }
 }

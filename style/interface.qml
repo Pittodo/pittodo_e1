@@ -6,7 +6,7 @@ import QtQuick.Layouts 1.3
 
 
 ApplicationWindow {
-  id: rootWindow
+  id: root_window
   width: 600
   height: 600
   flags: Qt.Window | Qt.FramelessWindowHint
@@ -22,8 +22,8 @@ ApplicationWindow {
     }
     onPositionChanged: {
         var delta = Qt.point(mouse.x-clickPos.x, mouse.y-clickPos.y)
-        rootWindow.x += delta.x;
-        rootWindow.y += delta.y;
+        root_window.x += delta.x;
+        root_window.y += delta.y;
     }
   }
 
@@ -35,8 +35,10 @@ ApplicationWindow {
     anchors.fill: parent
     anchors.centerIn: parent
 
-    TaskList {}
     TopBar {}
+    TaskList {}
+    // TaskWidget {}
+
     Image {
       source: "../images/logo.png"
       x: 25
